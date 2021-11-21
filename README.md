@@ -9,9 +9,13 @@ personajes que lo componen y entender en qué películas estos participaron. Por
 exponer la información para que cualquier frontend pueda consumirla.
 
 👉 Utilizar .NET Core.
+
 👉 No es necesario armar el Frontend.
+
 👉 Las rutas deberán seguir el patrón REST.
+
 👉 Utilizar DataAnnotations para el manejo de Autenticación.
+
 👉 Implementar el modelo CodeFirst para el modelado de datos.
 
 ⚠️ ¡No es indispensable hacer todo!
