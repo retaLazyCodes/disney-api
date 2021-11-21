@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Disney.Api", "Disney.Api\Disney.Api.csproj", "{718D03E4-7C01-4B4A-88E7-2A38EDEEE55D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Disney.Infrastructure", "Disney.Infrastructure\Disney.Infrastructure.csproj", "{CAC8F365-F51C-43EA-8C6A-C9B5683E2CA1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Disney.Core", "Disney.Core\Disney.Core.csproj", "{60A8C4F0-DF92-4C94-82A0-5EC6A544D4EE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{718D03E4-7C01-4B4A-88E7-2A38EDEEE55D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{718D03E4-7C01-4B4A-88E7-2A38EDEEE55D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{718D03E4-7C01-4B4A-88E7-2A38EDEEE55D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{718D03E4-7C01-4B4A-88E7-2A38EDEEE55D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CAC8F365-F51C-43EA-8C6A-C9B5683E2CA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAC8F365-F51C-43EA-8C6A-C9B5683E2CA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAC8F365-F51C-43EA-8C6A-C9B5683E2CA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAC8F365-F51C-43EA-8C6A-C9B5683E2CA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60A8C4F0-DF92-4C94-82A0-5EC6A544D4EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60A8C4F0-DF92-4C94-82A0-5EC6A544D4EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60A8C4F0-DF92-4C94-82A0-5EC6A544D4EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60A8C4F0-DF92-4C94-82A0-5EC6A544D4EE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
