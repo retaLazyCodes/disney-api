@@ -24,6 +24,7 @@ Mientras más completes, mayor puntaje obtendrás, pero puedes enviar la app has
 ## Requerimientos técnicos
 
 1. **Modelado de Base de Datos**
+   
    ● **Personaje**: deberá tener,
    ○ Imagen.
    ○ Nombre.
