@@ -4,14 +4,13 @@ using Disney.Core.Enumerations;
 
 namespace Disney.Core.Entities
 {
-    public class Movie
+    public class Movie: BaseEntity
     {
         public Movie()
         {
             Characters = new HashSet<Character>();
         }
 
-        public int Id { get; set; }
         public string Title { get; set; }
         public string Image { get; set; }
         public DateTime ReleaseDate { get; set; }
