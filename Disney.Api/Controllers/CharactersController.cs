@@ -11,12 +11,12 @@ namespace Disney.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class CharacterController : ControllerBase
+    public class CharactersController : ControllerBase
     {
         private readonly ICharacterService _characterService;
         private readonly IMapper _mapper;
 
-        public CharacterController(ICharacterService characterService, IMapper mapper)
+        public CharactersController(ICharacterService characterService, IMapper mapper)
         {
             _characterService = characterService;
             _mapper = mapper;
