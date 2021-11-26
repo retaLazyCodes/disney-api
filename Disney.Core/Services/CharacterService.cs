@@ -5,7 +5,7 @@ using Disney.Core.Interfaces;
 
 namespace Disney.Core.Services
 {
-    public class CharacterService : ICharacterService
+    public class CharacterService : Interfaces.ICharacterService
     {
         private readonly IUnitOfWork _unitOfWork;
 
