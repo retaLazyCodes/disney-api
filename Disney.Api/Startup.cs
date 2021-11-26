@@ -1,5 +1,8 @@
 using System;
+using Disney.Core.Interfaces;
+using Disney.Core.Services;
 using Disney.Infrastructure.Data;
+using Disney.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -22,6 +25,12 @@ namespace Disney.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            
+            services.AddTransient<ICharacterService, CharacterService>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
+            
             var serverVersion = new MySqlServerVersion(new Version(8, 0, 25));
 
             // AddDbContext es un metodo de extension que añade Entity Framework.
