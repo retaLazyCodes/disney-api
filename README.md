@@ -26,39 +26,61 @@ Mientras más completes, mayor puntaje obtendrás, pero puedes enviar la app has
 1. **Modelado de Base de Datos**
    
    ● **Personaje**: deberá tener,
+
    ○ Imagen.
+
    ○ Nombre.
+
    ○ Edad.
+
    ○ Peso.
+
    ○ Historia.
+
    ○ Películas o series asociadas.
    
+
+
    **Película o Serie:** deberá tener,
+
     ○ Imagen.
+
     ○ Título.
+
     ○ Fecha de creación.
+
     ○ Calificación (del 1 al 5).
+
     ○ Personajes asociados.
+
+
     
    **Género**: deberá tener,
     ○ Nombre.
+
     ○ Imagen.
+
     ○ Películas o series asociadas.
 
 
 2. **Autenticación de Usuarios**
    Para realizar peticiones a los endpoints subsiguientes el usuario deberá contar con un token que obtendrá al autenticarse. Para ello, deberán desarrollarse los endpoints de registro y login, que permitan obtener el token.
    Los endpoints encargados de la autenticación deberán ser:
+
    ●    */auth/login*
+
    ●    */auth/register*
 
 
 3. **Listado de Personajes**
    El listado deberá mostrar:
+
    ● Imagen.
+
    ● Nombre.
 
     El endpoint deberá ser:
+
     ●    */characters*
 
 
@@ -73,40 +95,43 @@ Mientras más completes, mayor puntaje obtendrás, pero puedes enviar la app has
 
 6. **Búsqueda de Personajes**
    
-Deberá permitir buscar por nombre, y filtrar por edad, peso o películas/series en las que participó.
-   Para especificar el término de búsqueda o filtros se deberán enviar como parámetros de query:
-   
-GET */characters?name=nombre*
-   
-GET */characters?age=edad*
-   
-GET */characters?movies=idMovie*
+   Deberá permitir buscar por nombre, y filtrar por edad, peso o películas/series en las que participó.
+      Para especificar el término de búsqueda o filtros se deberán enviar como parámetros de query:
+
+   GET */characters?name=nombre*
+
+   GET */characters?age=edad*
+
+   GET */characters?movies=idMovie*
 
 
 7. **Listado de Películas**
    
-Deberá mostrar solamente los campos imagen, título y fecha de creación.
-   El endpoint deberá ser:
-   
-   ● GET */movies*
+   Deberá mostrar solamente los campos imagen, título y fecha de creación.
+      El endpoint deberá ser:
+
+      ● GET */movies*
 
 
 8. **Detalle de Película / Serie con sus personajes**
    
-Devolverá todos los campos de la película o serie junto a los personajes asociados a la misma.
+   Devolverá todos los campos de la película o serie junto a los personajes asociados a la misma.
 
 9. **Creación, Edición y Eliminación de Película / Serie (CRUD)**
    
-Deberán existir las operaciones básicas de creación, edición y eliminación de películas o series.
+   Deberán existir las operaciones básicas de creación, edición y eliminación de películas o series.
 
 10. **Búsqueda de Películas o Series**
    
-Deberá permitir buscar por título, y filtrar por género. Además, permitir ordenar los resultados por fecha de creación de forma ascendiente o descendiente.
+      Deberá permitir buscar por título, y filtrar por género. Además, permitir ordenar los resultados por fecha de creación de forma ascendiente o descendiente.
 
-El término de búsqueda, filtro u ordenación se deberán especificar como parámetros de query:
-●      */movies?name=nombre*
-●      */movies?genre=idGenero*
-●      */movies?order=ASC | DESC*
+      El término de búsqueda, filtro u ordenación se deberán especificar como parámetros de query:
+      ●      */movies?name=nombre*
+
+      ●      */movies?genre=idGenero*
+
+      ●      */movies?order=ASC | DESC*
+
 
 11. **Envío de emails**
    
