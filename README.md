@@ -56,6 +56,7 @@ Mientras más completes, mayor puntaje obtendrás, pero puedes enviar la app has
 
     
    **Género**: deberá tener,
+
     ○ Nombre.
 
     ○ Imagen.
