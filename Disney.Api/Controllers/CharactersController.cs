@@ -4,7 +4,6 @@ using AutoMapper;
 using Disney.Core.DTOs;
 using Disney.Core.Entities;
 using Disney.Core.Interfaces;
-using Disney.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -55,7 +54,7 @@ namespace Disney.Api.Controllers
         }
         
         [HttpPut("{id:int}")]
-        public async Task<IActionResult> UpdatePost(int id, CharacterDto characterDto)
+        public async Task<IActionResult> UpdateCharacter(int id, CharacterDto characterDto)
         {
             var character = _mapper.Map<Character>(characterDto);
             character.Id = id;
@@ -64,7 +63,7 @@ namespace Disney.Api.Controllers
         }
         
         [HttpDelete("{id:int}")]
-        public async Task<IActionResult> DeletePost(int id)
+        public async Task<IActionResult> DeleteCharacter(int id)
         {
             var result = await _characterService.DeleteCharacter(id);
             return Ok(result);

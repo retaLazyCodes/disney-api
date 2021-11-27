@@ -28,6 +28,8 @@ namespace Disney.Api
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             
             services.AddTransient<ICharacterService, CharacterService>();
+            services.AddTransient<IGenreService, GenreService>();
+            services.AddTransient<IMovieService, MovieService>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
             
