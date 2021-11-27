@@ -10,6 +10,10 @@ namespace Disney.Infrastructure.Mappings
         {
             CreateMap<Character, CharacterDto>();
             CreateMap<CharacterDto, Character>();
+            CreateMap<Genre, GenreDto>();
+            CreateMap<GenreDto, Genre>();
+            CreateMap<Movie, MovieDto>();
+            CreateMap<MovieDto, Movie>();
         }
     }
 }
