@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using Disney.Api.Responses;
 using Disney.Core.DTOs;
 using Disney.Core.Entities;
 using Disney.Core.Interfaces;
@@ -27,8 +28,8 @@ namespace Disney.Api.Controllers
         {
             var genres = await _genreService.GetGenres();
             var genresDto = _mapper.Map<IEnumerable<GenreDto>>(genres);
-            
-            return Ok(genresDto);
+            var response = new ApiResponse<IEnumerable<GenreDto>>(genresDto);
+            return Ok(response);
         }
         
         [HttpGet("{id:int}")]
@@ -37,7 +38,8 @@ namespace Disney.Api.Controllers
             var genre = await _genreService.GetGenreById(id);
             if (genre != null)
             {
-                return Ok(genre);
+                var response = new ApiResponse<Genre>(genre);
+                return Ok(response);
             }
             return NotFound();
         }
@@ -49,8 +51,8 @@ namespace Disney.Api.Controllers
             await _genreService.InsertGenre(genre);
 
             genreDto = _mapper.Map<GenreDto>(genre);
-            
-            return Ok(genreDto);
+            var response = new ApiResponse<GenreDto>(genreDto);
+            return Ok(response);
         }
         
         [HttpPut("{id:int}")]
@@ -59,14 +61,16 @@ namespace Disney.Api.Controllers
             var genre = _mapper.Map<Genre>(genreDto);
             genre.Id = id;
             var result = await _genreService.UpdateGenre(genre);
-            return Ok(result);
+            var response = new ApiResponse<bool>(result);
+            return Ok(response);
         }
         
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteGenre(int id)
         {
             var result = await _genreService.DeleteGenre(id);
-            return Ok(result);
+            var response = new ApiResponse<bool>(result);
+            return Ok(response);
         }
     }
 }

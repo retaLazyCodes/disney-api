@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using Disney.Api.Responses;
+using Disney.Api.ViewModels;
 using Disney.Core.DTOs;
 using Disney.Core.Entities;
 using Disney.Core.Interfaces;
@@ -26,9 +28,9 @@ namespace Disney.Api.Controllers
         public async Task<IActionResult> GetCharacters()
         {
             var characters = await _characterService.GetCharacters();
-            var characterDto = _mapper.Map<IEnumerable<CharacterDto>>(characters);
-            
-            return Ok(characterDto);
+            var characterViewModels = _mapper.Map<IEnumerable<CharacterViewModel>>(characters);
+            var response = new ApiResponse<IEnumerable<CharacterViewModel>>(characterViewModels);
+            return Ok(response);
         }
         
         [HttpGet("{id:int}")]
@@ -37,7 +39,8 @@ namespace Disney.Api.Controllers
             var character = await _characterService.GetCharacterById(id);
             if (character != null)
             {
-                return Ok(character);
+                var response = new ApiResponse<Character>(character);
+                return Ok(response);
             }
             return NotFound();
         }
@@ -49,8 +52,8 @@ namespace Disney.Api.Controllers
             await _characterService.InsertCharacter(character);
 
             characterDto = _mapper.Map<CharacterDto>(character);
-            
-            return  Ok(characterDto);
+            var response = new ApiResponse<CharacterDto>(characterDto);
+            return Ok(response);
         }
         
         [HttpPut("{id:int}")]
@@ -59,14 +62,16 @@ namespace Disney.Api.Controllers
             var character = _mapper.Map<Character>(characterDto);
             character.Id = id;
             var result = await _characterService.UpdateCharacter(character);
-            return Ok(result);
+            var response = new ApiResponse<bool>(result);
+            return Ok(response);
         }
         
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteCharacter(int id)
         {
             var result = await _characterService.DeleteCharacter(id);
-            return Ok(result);
+            var response = new ApiResponse<bool>(result);
+            return Ok(response);
         }
     }
 }

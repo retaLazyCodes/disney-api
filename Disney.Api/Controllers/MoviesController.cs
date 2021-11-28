@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using Disney.Api.Responses;
 using Disney.Core.DTOs;
 using Disney.Core.Entities;
 using Disney.Core.Interfaces;
@@ -27,8 +28,8 @@ namespace Disney.Api.Controllers
         {
             var movies = await _movieService.GetMovies();
             var moviesDto = _mapper.Map<IEnumerable<MovieDto>>(movies);
-            
-            return Ok(moviesDto);
+            var response = new ApiResponse<IEnumerable<MovieDto>>(moviesDto);
+            return Ok(response);
         }
         
         [HttpGet("{id:int}")]
@@ -37,7 +38,8 @@ namespace Disney.Api.Controllers
             var movie = await _movieService.GetMovieById(id);
             if (movie != null)
             {
-                return Ok(movie);
+                var response = new ApiResponse<Movie>(movie);
+                return Ok(response);
             }
             return NotFound();
         }
@@ -49,8 +51,8 @@ namespace Disney.Api.Controllers
             await _movieService.InsertMovie(movie);
 
             movieDto = _mapper.Map<MovieDto>(movie);
-            
-            return Ok(movieDto);
+            var response = new ApiResponse<MovieDto>(movieDto);
+            return Ok(response);
         }
         
         [HttpPut("{id:int}")]
@@ -59,14 +61,16 @@ namespace Disney.Api.Controllers
             var movie = _mapper.Map<Movie>(movieDto);
             movie.Id = id;
             var result = await _movieService.UpdateMovie(movie);
-            return Ok(result);
+            var response = new ApiResponse<bool>(result);
+            return Ok(response);
         }
         
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteMovie(int id)
         {
             var result = await _movieService.DeleteMovie(id);
-            return Ok(result);
+            var response = new ApiResponse<bool>(result);
+            return Ok(response);
         }
     }
 }
