@@ -10,5 +10,6 @@ namespace Disney.Core.DTOs
         public string Image { get; set; }
         public DateTime ReleaseDate { get; set; }
         public Score Score { get; set; }
+        public int GenreId { get; set; }
     }
 }
