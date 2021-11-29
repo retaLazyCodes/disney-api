@@ -33,13 +33,11 @@ namespace Disney.Api
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
             
-            var serverVersion = new MySqlServerVersion(new Version(8, 0, 25));
-
-            // AddDbContext es un metodo de extension que añade Entity Framework.
+            var connectionString = Configuration.GetConnectionString("Disney");
+            
             services.AddDbContext<DisneyContext>(options =>
             {
-                options.UseMySql(Configuration.GetConnectionString("Disney"),
-                        serverVersion)
+                options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString))
                     .EnableSensitiveDataLogging() // <-- These two calls are optional but help
                     .EnableDetailedErrors(); // <-- with debugging (remove for production).
             });
