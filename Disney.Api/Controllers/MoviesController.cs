@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Disney.Api.Responses;
+using Disney.Api.ViewModels;
 using Disney.Core.DTOs;
 using Disney.Core.Entities;
 using Disney.Core.Interfaces;
@@ -27,8 +28,8 @@ namespace Disney.Api.Controllers
         public async Task<IActionResult> GetMovies()
         {
             var movies = await _movieService.GetMovies();
-            var moviesDto = _mapper.Map<IEnumerable<MovieDto>>(movies);
-            var response = new ApiResponse<IEnumerable<MovieDto>>(moviesDto);
+            var movieViewModels = _mapper.Map<IEnumerable<MovieViewModel>>(movies);
+            var response = new ApiResponse<IEnumerable<MovieViewModel>>(movieViewModels);
             return Ok(response);
         }
         

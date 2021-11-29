@@ -10,10 +10,7 @@ namespace Disney.Api.Mappings
         public ViewModelsProfile()
         {
             CreateMap<Character, CharacterViewModel>();
-            CreateMap<Genre, GenreDto>();
-            CreateMap<GenreDto, Genre>();
-            CreateMap<Movie, MovieDto>();
-            CreateMap<MovieDto, Movie>();
+            CreateMap<Movie, MovieViewModel>();
         }
     }
 }
