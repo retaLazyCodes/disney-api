@@ -1,4 +1,5 @@
 using Disney.Core.Entities;
+using Disney.Infrastructure.Data.Configurations;
 using Microsoft.EntityFrameworkCore;
 
 namespace Disney.Infrastructure.Data
@@ -19,5 +20,14 @@ namespace Disney.Infrastructure.Data
         public virtual DbSet<Character> Characters { get; set; }
         public virtual DbSet<Genre> Genres { get; set; }
         public virtual DbSet<Movie> Movies { get; set; }
+        public virtual DbSet<CharacterMovie> CharacterMovies { get; set; }
+        
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.HasCharSet("utf8mb4")
+                .UseCollation("utf8mb4_0900_ai_ci");
+
+            modelBuilder.ApplyConfiguration(new CharacterMovieConfiguration());
+        }
     }
 }
