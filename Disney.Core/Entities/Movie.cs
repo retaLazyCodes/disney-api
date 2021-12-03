@@ -6,16 +6,11 @@ namespace Disney.Core.Entities
 {
     public class Movie: BaseEntity
     {
-        public Movie()
-        {
-            Characters = new HashSet<Character>();
-        }
-
         public string Title { get; set; }
         public string Image { get; set; }
         public DateTime ReleaseDate { get; set; }
         public Score Score { get; set; }
         public int GenreId { get; set; }
-        public virtual ICollection<Character> Characters { get; set; }
+        public virtual ICollection<CharacterMovie> Characters { get; set; }
     }
 }
