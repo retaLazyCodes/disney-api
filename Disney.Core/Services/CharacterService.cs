@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Disney.Core.Entities;
 using Disney.Core.Interfaces;
+using SocialMedia.Core.QueryFilters;
 
 namespace Disney.Core.Services
 {
@@ -14,9 +16,26 @@ namespace Disney.Core.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<IEnumerable<Character>> GetCharacters()
+        public IEnumerable<Character> GetCharacters(CharacterQueryFilter filters)
         {
-            return await _unitOfWork.CharacterRepository.GetAll();
+            var characters = _unitOfWork.CharacterRepository.GetAll();
+
+            if (filters.Name != null)
+            {
+                characters = characters.Where(x => x.Name.ToLower().Contains(filters.Name.ToLower()));
+            }
+
+            if (filters.Age != null)
+            {
+                characters = characters.Where(x => x.Age == filters.Age);
+            }
+
+            if (filters.Movie != null)
+            {
+                
+            }
+
+            return characters;
         }
 
         public async Task<Character> GetCharacterById(int id)

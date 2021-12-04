@@ -6,7 +6,7 @@ namespace Disney.Core.Interfaces
 {
     public interface IGenreService
     {
-        Task<IEnumerable<Genre>> GetGenres();
+        IEnumerable<Genre> GetGenres();
         Task<Genre> GetGenreById(int id);
         Task InsertGenre(Genre genre);
         Task<bool> UpdateGenre(Genre genre);

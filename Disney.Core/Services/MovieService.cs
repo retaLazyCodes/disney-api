@@ -14,9 +14,9 @@ namespace Disney.Core.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<IEnumerable<Movie>> GetMovies()
+        public IEnumerable<Movie> GetMovies()
         {
-            return await _unitOfWork.MovieRepository.GetAll();
+            return _unitOfWork.MovieRepository.GetAll();
         }
 
         public async Task<Movie> GetMovieById(int id)

@@ -7,7 +7,7 @@ using Disney.Core.DTOs;
 using Disney.Core.Entities;
 using Disney.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-
+using SocialMedia.Core.QueryFilters;
 
 namespace Disney.Api.Controllers
 {
@@ -25,9 +25,9 @@ namespace Disney.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetCharacters()
+        public IActionResult GetCharacters([FromQuery] CharacterQueryFilter filters)
         {
-            var characters = await _characterService.GetCharacters();
+            var characters = _characterService.GetCharacters(filters);
             var characterViewModels = _mapper.Map<IEnumerable<CharacterViewModel>>(characters);
             var response =
                 OperationResult<IEnumerable<CharacterViewModel>>.CreateSuccessResult(characterViewModels);

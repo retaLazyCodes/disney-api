@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Disney.Core.Entities;
 using Disney.Core.Interfaces;
@@ -17,10 +18,10 @@ namespace Disney.Infrastructure.Repositories
             _context = context;
             _entities = _context.Set<T>();
         }
-        
-        public async Task<IEnumerable<T>> GetAll()
+
+        public IEnumerable<T> GetAll()
         {
-            return await _entities.ToListAsync();
+            return _entities.AsEnumerable();
         }
 
         public async Task<T> GetById(int id)
