@@ -127,6 +127,7 @@ Mientras más completes, mayor puntaje obtendrás, pero puedes enviar la app has
       Deberá permitir buscar por título, y filtrar por género. Además, permitir ordenar los resultados por fecha de creación de forma ascendiente o descendiente.
 
       El término de búsqueda, filtro u ordenación se deberán especificar como parámetros de query:
+
       ●      */movies?name=nombre*
 
       ●      */movies?genre=idGenero*
