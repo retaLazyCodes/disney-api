@@ -9,6 +9,6 @@ namespace Disney.Core.Entities
         public int Age { get; set; }
         public float Weight { get; set; }
         public string History { get; set; }
-        public virtual ICollection<CharacterMovie> Movies { get; set; }
+        public virtual ICollection<Movie> Movies { get; set; } = new List<Movie>();
     }
 }

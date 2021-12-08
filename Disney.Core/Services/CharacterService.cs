@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Disney.Core.DTOs;
 using Disney.Core.Entities;
 using Disney.Core.Interfaces;
 using SocialMedia.Core.QueryFilters;
@@ -16,9 +17,9 @@ namespace Disney.Core.Services
             _unitOfWork = unitOfWork;
         }
 
-        public IEnumerable<Character> GetCharacters(CharacterQueryFilter filters)
+        public async Task<IEnumerable<Character>> GetCharacters(CharacterQueryFilter filters)
         {
-            var characters = _unitOfWork.CharacterRepository.GetAll();
+            var characters = await _unitOfWork.CharacterRepository.GetAll();
 
             if (filters.Name != null)
             {
@@ -32,20 +33,20 @@ namespace Disney.Core.Services
 
             if (filters.Movie != null)
             {
-                
+                characters = _unitOfWork.CharacterRepository.GetCharactersByMovie((int)filters.Movie);
             }
 
             return characters;
         }
 
-        public async Task<Character> GetCharacterById(int id)
+        public async Task<CharacterWithMovies> GetCharacterById(int id)
         {
-            return await _unitOfWork.CharacterRepository.GetById(id);
+            return await _unitOfWork.CharacterRepository.GetCharacterDetailById(id);
         }
 
-        public async Task InsertCharacter(Character character)
+        public Character InsertCharacter(Character character, List<int> moviesIds)
         {
-            await _unitOfWork.CharacterRepository.Add(character);
+            return _unitOfWork.CharacterRepository.InsertCharacter(character, moviesIds);
         }
 
         public async Task<bool> UpdateCharacter(Character character)

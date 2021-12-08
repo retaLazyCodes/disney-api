@@ -10,7 +10,7 @@ namespace Disney.Infrastructure.Repositories
 {
     public class BaseRepository<T> : IRepository<T> where T : BaseEntity
     {
-        private readonly DisneyContext _context;
+        protected readonly DisneyContext _context;
         private readonly DbSet<T> _entities;
 
         public BaseRepository(DisneyContext context)
@@ -19,7 +19,7 @@ namespace Disney.Infrastructure.Repositories
             _entities = _context.Set<T>();
         }
 
-        public IEnumerable<T> GetAll()
+        public async Task<IEnumerable<T>> GetAll()
         {
             return _entities.AsEnumerable();
         }

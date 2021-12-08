@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
@@ -41,6 +42,8 @@ namespace Disney.Api
             services.AddDbContext<DisneyContext>(options =>
             {
                 options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString))
+                    .LogTo(Console.WriteLine, new[] {DbLoggerCategory.Database.Name}, 
+                        LogLevel.Information)
                     .EnableSensitiveDataLogging() // <-- These two calls are optional but help
                     .EnableDetailedErrors(); // <-- with debugging (remove for production).
             });

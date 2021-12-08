@@ -107,21 +107,17 @@ namespace Disney.Infrastructure.Migrations
 
             modelBuilder.Entity("Disney.Core.Entities.CharacterMovie", b =>
                 {
-                    b.HasOne("Disney.Core.Entities.Character", "Character")
-                        .WithMany("Movies")
+                    b.HasOne("Disney.Core.Entities.Character", null)
+                        .WithMany()
                         .HasForeignKey("CharacterId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Disney.Core.Entities.Movie", "Movie")
-                        .WithMany("Characters")
+                    b.HasOne("Disney.Core.Entities.Movie", null)
+                        .WithMany()
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Character");
-
-                    b.Navigation("Movie");
                 });
 
             modelBuilder.Entity("Disney.Core.Entities.Movie", b =>
@@ -133,19 +129,9 @@ namespace Disney.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Disney.Core.Entities.Character", b =>
-                {
-                    b.Navigation("Movies");
-                });
-
             modelBuilder.Entity("Disney.Core.Entities.Genre", b =>
                 {
                     b.Navigation("Movies");
-                });
-
-            modelBuilder.Entity("Disney.Core.Entities.Movie", b =>
-                {
-                    b.Navigation("Characters");
                 });
 #pragma warning restore 612, 618
         }

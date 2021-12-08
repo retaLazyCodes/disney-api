@@ -8,20 +8,20 @@ namespace Disney.Infrastructure.Data
     {
         public DisneyContext()
         {
-            
+
         }
 
         public DisneyContext(DbContextOptions<DisneyContext> options)
             : base(options)
         {
-            
+
         }
-        
+
         public virtual DbSet<Character> Characters { get; set; }
         public virtual DbSet<Genre> Genres { get; set; }
         public virtual DbSet<Movie> Movies { get; set; }
-        public virtual DbSet<CharacterMovie> CharacterMovies { get; set; }
-        
+        public virtual DbSet<CharacterMovie> CharacterMovie { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasCharSet("utf8mb4")
@@ -29,5 +29,6 @@ namespace Disney.Infrastructure.Data
 
             modelBuilder.ApplyConfiguration(new CharacterMovieConfiguration());
         }
+
     }
 }

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Disney.Core.DTOs
 {
-    public class CharacterDto 
+    public class CharacterWithMovies
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -10,6 +10,6 @@ namespace Disney.Core.DTOs
         public int Age { get; set; }
         public float Weight { get; set; }
         public string History { get; set; }
-        public List<int> MoviesIds { get; set; }
+        public List<MovieDto> Movies { get; set; }
     }
 }

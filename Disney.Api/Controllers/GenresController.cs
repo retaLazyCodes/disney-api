@@ -24,9 +24,9 @@ namespace Disney.Api.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetGenres()
+        public async Task<IActionResult> GetGenres()
         {
-            var genres = _genreService.GetGenres();
+            var genres = await _genreService.GetGenres();
             var genresDto = _mapper.Map<IEnumerable<GenreDto>>(genres);
             var response = new ApiResponse<IEnumerable<GenreDto>>(genresDto);
             return Ok(response);

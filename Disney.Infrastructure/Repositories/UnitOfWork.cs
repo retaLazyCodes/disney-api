@@ -8,18 +8,18 @@ namespace Disney.Infrastructure.Repositories
     public class UnitOfWork : IUnitOfWork
     {
         private readonly DisneyContext _context;
-        private IRepository<Character> _characterRepository;
+        private ICharacterRepository _characterRepository;
         private IRepository<Genre> _genreRepository;
         private IRepository<Movie> _movieRepository;
-        
+
         public UnitOfWork(DisneyContext context)
         {
             _context = context;
         }
 
-        public IRepository<Character> CharacterRepository => 
+        public ICharacterRepository CharacterRepository => 
             _characterRepository ?? 
-            new BaseRepository<Character>(_context);
+            new CharacterRepository(_context);
         
         public IRepository<Genre> GenreRepository => 
             _genreRepository ?? 
@@ -28,7 +28,7 @@ namespace Disney.Infrastructure.Repositories
         public IRepository<Movie> MovieRepository => 
             _movieRepository ?? 
             new BaseRepository<Movie>(_context);
-        
+
         public void Dispose()
         {
             if (_context != null)

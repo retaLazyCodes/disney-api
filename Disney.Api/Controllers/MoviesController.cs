@@ -25,9 +25,9 @@ namespace Disney.Api.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetMovies()
+        public async Task<IActionResult> GetMovies()
         {
-            var movies = _movieService.GetMovies();
+            var movies = await _movieService.GetMovies();
             var movieViewModels = _mapper.Map<IEnumerable<MovieViewModel>>(movies);
             var response = new ApiResponse<IEnumerable<MovieViewModel>>(movieViewModels);
             return Ok(response);

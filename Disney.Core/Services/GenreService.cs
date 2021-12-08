@@ -14,7 +14,7 @@ namespace Disney.Core.Services
             _unitOfWork = unitOfWork;
         }
 
-        public IEnumerable<Genre> GetGenres()
+        public Task<IEnumerable<Genre>> GetGenres()
         {
             return _unitOfWork.GenreRepository.GetAll();
         }

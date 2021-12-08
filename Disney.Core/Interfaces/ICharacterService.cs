@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Disney.Core.DTOs;
 using Disney.Core.Entities;
 using SocialMedia.Core.QueryFilters;
 
@@ -7,10 +8,10 @@ namespace Disney.Core.Interfaces
 {
     public interface ICharacterService
     {
-        IEnumerable<Character> GetCharacters(CharacterQueryFilter filters);
-        Task<Character> GetCharacterById(int id);
-        Task InsertCharacter(Character post);
-        Task<bool> UpdateCharacter(Character post);
+        Task<IEnumerable<Character>> GetCharacters(CharacterQueryFilter filters);
+        Task<CharacterWithMovies> GetCharacterById(int id);
+        Character InsertCharacter(Character character, List<int> moviesIds);
+        Task<bool> UpdateCharacter(Character character);
         Task<bool> DeleteCharacter(int id);
     }
 }

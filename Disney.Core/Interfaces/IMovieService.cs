@@ -6,7 +6,7 @@ namespace Disney.Core.Interfaces
 {
     public interface IMovieService
     {
-        IEnumerable<Movie> GetMovies();
+        Task<IEnumerable<Movie>> GetMovies();
         Task<Movie> GetMovieById(int id);
         Task InsertMovie(Movie movie);
         Task<bool> UpdateMovie(Movie movie);

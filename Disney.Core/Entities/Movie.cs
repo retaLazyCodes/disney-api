@@ -11,6 +11,6 @@ namespace Disney.Core.Entities
         public DateTime ReleaseDate { get; set; }
         public Score Score { get; set; }
         public int GenreId { get; set; }
-        public virtual ICollection<CharacterMovie> Characters { get; set; }
+        public virtual ICollection<Character> Characters { get; set; } = new List<Character>();
     }
 }

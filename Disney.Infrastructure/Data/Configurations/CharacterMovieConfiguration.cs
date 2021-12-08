@@ -1,26 +1,22 @@
+
+
 using Disney.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Disney.Infrastructure.Data.Configurations
 {
-    public class CharacterMovieConfiguration : IEntityTypeConfiguration<CharacterMovie>
+    public class CharacterMovieConfiguration : IEntityTypeConfiguration<Character>
     {
-        public void Configure(EntityTypeBuilder<CharacterMovie> builder)
+        public void Configure(EntityTypeBuilder<Character> builder)
         {
-            builder.ToTable("CharacterMovie");
-
-            builder.HasKey(cm => new {cm.CharacterId, cm.MovieId});
-
             builder
-                .HasOne(cm => cm.Character)
-                .WithMany(c => c.Movies)
-                .HasForeignKey(cm => cm.CharacterId);
-
-            builder
-                .HasOne(cm => cm.Movie)
+                .HasMany(c => c.Movies)
                 .WithMany(m => m.Characters)
-                .HasForeignKey(cm => cm.MovieId);
+                .UsingEntity<CharacterMovie>
+                (cm => cm.HasOne<Movie>().WithMany(),
+                    cm => cm.HasOne<Character>().WithMany());
         }
+
     }
 }

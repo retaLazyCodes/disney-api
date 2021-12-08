@@ -25,9 +25,9 @@ namespace Disney.Api.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetCharacters([FromQuery] CharacterQueryFilter filters)
+        public async Task<IActionResult> GetCharacters([FromQuery] CharacterQueryFilter filters)
         {
-            var characters = _characterService.GetCharacters(filters);
+            var characters = await _characterService.GetCharacters(filters);
             var characterViewModels = _mapper.Map<IEnumerable<CharacterViewModel>>(characters);
             var response =
                 OperationResult<IEnumerable<CharacterViewModel>>.CreateSuccessResult(characterViewModels);
@@ -41,17 +41,17 @@ namespace Disney.Api.Controllers
             if (character != null)
             {
                 var response =
-                    OperationResult<Character>.CreateSuccessResult(character);
+                    OperationResult<CharacterWithMovies>.CreateSuccessResult(character);
                 return Ok(response);
             }
             return NotFound();
         }
 
         [HttpPost]
-        public async Task<IActionResult> InsertCharacter(CharacterDto characterDto)
+        public IActionResult InsertCharacter(CharacterDto characterDto)
         {
             var character = _mapper.Map<Character>(characterDto);
-            await _characterService.InsertCharacter(character);
+            _characterService.InsertCharacter(character, characterDto.MoviesIds);
 
             characterDto = _mapper.Map<CharacterDto>(character);
             var response =
