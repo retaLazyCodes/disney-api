@@ -19,17 +19,20 @@ namespace Disney.Infrastructure.Repositories
         public Character InsertCharacter(Character character, List<int> moviesIds)
         {
             _context.Characters.Add(character);
-            _context.SaveChanges();
+            // _context.SaveChanges();
 
-            foreach (var id in moviesIds)
+            if (moviesIds != null) 
             {
-                var characterMovie = new CharacterMovie()
+                foreach (var id in moviesIds)
                 {
-                    CharacterId = character.Id,
-                    MovieId = id
-                };
+                    var characterMovie = new CharacterMovie()
+                    {
+                        CharacterId = character.Id,
+                        MovieId = id
+                    };
 
-                _context.CharacterMovie.Add(characterMovie);
+                    _context.CharacterMovie.Add(characterMovie);
+                }
             }
 
             _context.SaveChanges();
