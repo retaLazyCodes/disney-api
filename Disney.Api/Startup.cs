@@ -3,6 +3,7 @@ using System.Text;
 using Disney.Core.Interfaces;
 using Disney.Core.Services;
 using Disney.Infrastructure.Data;
+using Disney.Infrastructure.Data.Seeds;
 using Disney.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -92,6 +93,8 @@ namespace Disney.Api
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+            
+            AppDbInitializer.Seed(app);
         }
     }
 }

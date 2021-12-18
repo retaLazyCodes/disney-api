@@ -21,6 +21,11 @@ namespace Disney.Core.Services
         {
             var characters = await _unitOfWork.CharacterRepository.GetAll();
 
+            if (filters.Movie != null)
+            {
+                characters = _unitOfWork.CharacterRepository.GetCharactersByMovie((int)filters.Movie);
+            }
+
             if (filters.Name != null)
             {
                 characters = characters.Where(x => x.Name.ToLower().Contains(filters.Name.ToLower()));
@@ -29,11 +34,6 @@ namespace Disney.Core.Services
             if (filters.Age != null)
             {
                 characters = characters.Where(x => x.Age == filters.Age);
-            }
-
-            if (filters.Movie != null)
-            {
-                characters = _unitOfWork.CharacterRepository.GetCharactersByMovie((int)filters.Movie);
             }
 
             return characters;
