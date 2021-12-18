@@ -18,4 +18,8 @@
       <ProjectReference Include="..\Disney.Core\Disney.Core.csproj" />
     </ItemGroup>
 
+     <ItemGroup>
+      <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    </ItemGroup>
+
 </Project>
