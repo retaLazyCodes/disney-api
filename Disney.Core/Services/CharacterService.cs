@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Disney.Core.DTOs;
 using Disney.Core.Entities;
 using Disney.Core.Interfaces;
-using SocialMedia.Core.QueryFilters;
+using Disney.Core.QueryFilters;
 
 namespace Disney.Core.Services
 {

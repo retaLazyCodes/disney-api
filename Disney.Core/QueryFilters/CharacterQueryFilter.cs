@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace SocialMedia.Core.QueryFilters
+namespace Disney.Core.QueryFilters
 {
     public class CharacterQueryFilter
     {

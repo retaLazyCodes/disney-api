@@ -7,7 +7,7 @@ using Disney.Core.DTOs;
 using Disney.Core.Entities;
 using Disney.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using SocialMedia.Core.QueryFilters;
+using Disney.Core.QueryFilters;
 
 namespace Disney.Api.Controllers
 {
