@@ -6,8 +6,8 @@ using Disney.Api.ViewModels;
 using Disney.Core.DTOs;
 using Disney.Core.Entities;
 using Disney.Core.Interfaces;
+using Disney.Core.QueryFilters;
 using Microsoft.AspNetCore.Mvc;
-
 
 namespace Disney.Api.Controllers
 {
@@ -25,11 +25,12 @@ namespace Disney.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetMovies()
+        public async Task<IActionResult> GetMovies([FromQuery] MovieQueryFilter filters)
         {
-            var movies = await _movieService.GetMovies();
+            var movies = await _movieService.GetMovies(filters);
             var movieViewModels = _mapper.Map<IEnumerable<MovieViewModel>>(movies);
-            var response = new ApiResponse<IEnumerable<MovieViewModel>>(movieViewModels);
+            var response =
+                OperationResult<IEnumerable<MovieViewModel>>.CreateSuccessResult(movieViewModels);
             return Ok(response);
         }
         
@@ -39,7 +40,7 @@ namespace Disney.Api.Controllers
             var movie = await _movieService.GetMovieById(id);
             if (movie != null)
             {
-                var response = new ApiResponse<Movie>(movie);
+                var response = OperationResult<Movie>.CreateSuccessResult(movie);
                 return Ok(response);
             }
             return NotFound();
@@ -52,7 +53,7 @@ namespace Disney.Api.Controllers
             await _movieService.InsertMovie(movie);
 
             movieDto = _mapper.Map<MovieDto>(movie);
-            var response = new ApiResponse<MovieDto>(movieDto);
+            var response = OperationResult<MovieDto>.CreateSuccessResult(movieDto);
             return Ok(response);
         }
         
@@ -62,7 +63,7 @@ namespace Disney.Api.Controllers
             var movie = _mapper.Map<Movie>(movieDto);
             movie.Id = id;
             var result = await _movieService.UpdateMovie(movie);
-            var response = new ApiResponse<bool>(result);
+            var response = OperationResult<bool>.CreateSuccessResult(result);
             return Ok(response);
         }
         
@@ -70,7 +71,7 @@ namespace Disney.Api.Controllers
         public async Task<IActionResult> DeleteMovie(int id)
         {
             var result = await _movieService.DeleteMovie(id);
-            var response = new ApiResponse<bool>(result);
+            var response = OperationResult<bool>.CreateSuccessResult(result);
             return Ok(response);
         }
     }
