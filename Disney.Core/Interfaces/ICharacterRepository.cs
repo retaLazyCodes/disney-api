@@ -8,7 +8,8 @@ namespace Disney.Core.Interfaces
     public interface ICharacterRepository : IRepository<Character>
     {
         public IEnumerable<Character> GetCharactersByMovie(int movieId);
-        public Character InsertCharacter(Character character, List<int> moviesIds);
         public Task<CharacterWithMovies> GetCharacterDetailById(int characterId);
+        public Character InsertCharacter(Character character, List<int> moviesIds);
+        public Task<bool> UpdateCharacter(Character character, List<int> moviesIds);
     }
 }

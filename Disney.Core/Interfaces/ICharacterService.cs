@@ -11,7 +11,7 @@ namespace Disney.Core.Interfaces
         Task<IEnumerable<Character>> GetCharacters(CharacterQueryFilter filters);
         Task<CharacterWithMovies> GetCharacterById(int id);
         Character InsertCharacter(Character character, List<int> moviesIds);
-        Task<bool> UpdateCharacter(Character character);
+        Task<bool> UpdateCharacter(Character character, List<int> moviesIds);
         Task<bool> DeleteCharacter(int id);
     }
 }

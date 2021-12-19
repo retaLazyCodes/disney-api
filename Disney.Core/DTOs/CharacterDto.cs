@@ -10,6 +10,6 @@ namespace Disney.Core.DTOs
         public int Age { get; set; }
         public float Weight { get; set; }
         public string History { get; set; }
-        public List<int> MoviesIds { get; set; }
+        public List<int> MovieIds { get; set; }
     }
 }

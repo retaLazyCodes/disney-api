@@ -51,7 +51,7 @@ namespace Disney.Api.Controllers
         public IActionResult InsertCharacter(CharacterDto characterDto)
         {
             var character = _mapper.Map<Character>(characterDto);
-            _characterService.InsertCharacter(character, characterDto.MoviesIds);
+            _characterService.InsertCharacter(character, characterDto.MovieIds);
 
             characterDto = _mapper.Map<CharacterDto>(character);
             var response =
@@ -64,7 +64,7 @@ namespace Disney.Api.Controllers
         {
             var character = _mapper.Map<Character>(characterDto);
             character.Id = id;
-            var result = await _characterService.UpdateCharacter(character);
+            var result = await _characterService.UpdateCharacter(character, characterDto.MovieIds);
             var response = OperationResult<bool>.CreateSuccessResult(result);
             return Ok(response);
         }

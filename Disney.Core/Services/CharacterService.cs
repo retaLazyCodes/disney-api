@@ -49,9 +49,9 @@ namespace Disney.Core.Services
             return _unitOfWork.CharacterRepository.InsertCharacter(character, moviesIds);
         }
 
-        public async Task<bool> UpdateCharacter(Character character)
+        public async Task<bool> UpdateCharacter(Character character, List<int> moviesIds)
         {
-            await _unitOfWork.CharacterRepository.Update(character);
+            await _unitOfWork.CharacterRepository.UpdateCharacter(character, moviesIds);
             return true;
         }
 
