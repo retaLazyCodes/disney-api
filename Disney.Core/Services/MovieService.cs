@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Disney.Core.DTOs;
 using Disney.Core.Entities;
 using Disney.Core.Interfaces;
 using Disney.Core.QueryFilters;
@@ -49,9 +50,9 @@ namespace Disney.Core.Services
             return movies;
         }
 
-        public async Task<Movie> GetMovieById(int id)
+        public async Task<MovieWithCharacters> GetMovieById(int id)
         {
-            return await _unitOfWork.MovieRepository.GetById(id);
+            return await _unitOfWork.MovieRepository.GetMovieDetailById(id);
         }
 
         public async Task InsertMovie(Movie genre)

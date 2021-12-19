@@ -8,7 +8,7 @@ namespace Disney.Core.Interfaces
     {
         public ICharacterRepository CharacterRepository { get; }
         public IRepository<Genre> GenreRepository { get; }
-        public IRepository<Movie> MovieRepository { get; }
+        public IMovieRepository MovieRepository { get; }
 
         void SaveChanges();
         Task SaveChangesAsync();

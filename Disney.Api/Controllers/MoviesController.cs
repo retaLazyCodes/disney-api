@@ -40,7 +40,8 @@ namespace Disney.Api.Controllers
             var movie = await _movieService.GetMovieById(id);
             if (movie != null)
             {
-                var response = OperationResult<Movie>.CreateSuccessResult(movie);
+                var response = 
+                    OperationResult<MovieWithCharacters>.CreateSuccessResult(movie);
                 return Ok(response);
             }
             return NotFound();
