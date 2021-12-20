@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Disney.Core.DTOs;
 using Disney.Core.Entities;
 using Disney.Core.Interfaces;
 
@@ -19,9 +20,9 @@ namespace Disney.Core.Services
             return _unitOfWork.GenreRepository.GetAll();
         }
 
-        public async Task<Genre> GetGenreById(int id)
+        public async Task<GenreWithMovies> GetGenreById(int id)
         {
-            return await _unitOfWork.GenreRepository.GetById(id);
+            return await _unitOfWork.GenreRepository.GetGenreDetailById(id);
         }
 
         public async Task InsertGenre(Genre genre)

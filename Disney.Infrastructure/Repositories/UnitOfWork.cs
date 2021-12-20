@@ -9,7 +9,7 @@ namespace Disney.Infrastructure.Repositories
     {
         private readonly DisneyContext _context;
         private ICharacterRepository _characterRepository;
-        private IRepository<Genre> _genreRepository;
+        private IGenreRepository _genreRepository;
         private IMovieRepository _movieRepository;
 
         public UnitOfWork(DisneyContext context)
@@ -21,9 +21,9 @@ namespace Disney.Infrastructure.Repositories
             _characterRepository ?? 
             new CharacterRepository(_context);
         
-        public IRepository<Genre> GenreRepository => 
+        public IGenreRepository GenreRepository => 
             _genreRepository ?? 
-            new BaseRepository<Genre>(_context);
+            new GenreRepository(_context);
         
         public IMovieRepository MovieRepository => 
             _movieRepository ?? 

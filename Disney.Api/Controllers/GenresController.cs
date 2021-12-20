@@ -38,7 +38,7 @@ namespace Disney.Api.Controllers
             var genre = await _genreService.GetGenreById(id);
             if (genre != null)
             {
-                var response = new ApiResponse<Genre>(genre);
+                var response = new ApiResponse<GenreWithMovies>(genre);
                 return Ok(response);
             }
             return NotFound();
