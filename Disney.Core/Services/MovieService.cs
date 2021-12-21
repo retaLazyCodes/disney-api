@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Disney.Core.CustomEntities;
@@ -19,7 +17,7 @@ namespace Disney.Core.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<IEnumerable<Movie>> GetMovies(MovieQueryFilter filters)
+        public async Task<PagedList<Movie>> GetMovies(MovieQueryFilter filters)
         {
             var movies = await _unitOfWork.MovieRepository.GetAll();
 
@@ -55,7 +53,6 @@ namespace Disney.Core.Services
                 PagedList<Movie>
                 .Create(movies, filters.PageNumber, filters.PageSize);
             return pagedMovies;
-            // return movies;
         }
 
         public async Task<MovieWithCharacters> GetMovieById(int id)

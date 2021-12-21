@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using System.Threading.Tasks;
+using Disney.Core.CustomEntities;
 using Disney.Core.DTOs;
 using Disney.Core.Entities;
 using Disney.Core.QueryFilters;
@@ -8,7 +8,7 @@ namespace Disney.Core.Interfaces
 {
     public interface IMovieService
     {
-        Task<IEnumerable<Movie>> GetMovies(MovieQueryFilter filters);
+        Task<PagedList<Movie>> GetMovies(MovieQueryFilter filters);
         Task<MovieWithCharacters> GetMovieById(int id);
         Task InsertMovie(Movie movie);
         Task<bool> UpdateMovie(Movie movie);

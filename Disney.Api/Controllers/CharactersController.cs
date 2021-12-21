@@ -8,6 +8,7 @@ using Disney.Core.Entities;
 using Disney.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Disney.Core.QueryFilters;
+using System.Text.Json;
 
 namespace Disney.Api.Controllers
 {
@@ -31,6 +32,18 @@ namespace Disney.Api.Controllers
             var characterViewModels = _mapper.Map<IEnumerable<CharacterViewModel>>(characters);
             var response =
                 OperationResult<IEnumerable<CharacterViewModel>>.CreateSuccessResult(characterViewModels);
+
+            var metadata = new
+            {
+                characters.TotalCount,
+                characters.PageSize,
+                characters.CurrentPage,
+                characters.TotalPages,
+                characters.HasNextPage,
+                characters.HasPreviousPage
+            };
+
+            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(metadata));
             return Ok(response);
         }
 

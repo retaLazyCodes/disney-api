@@ -18,7 +18,7 @@ namespace Disney.Core.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<IEnumerable<Character>> GetCharacters(CharacterQueryFilter filters)
+        public async Task<PagedList<Character>> GetCharacters(CharacterQueryFilter filters)
         {
             var characters = await _unitOfWork.CharacterRepository.GetAll();
 
