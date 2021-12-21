@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+using Disney.Api.Middlewares;
 using Disney.Core.Interfaces;
 using Disney.Core.Services;
 using Disney.Infrastructure.Data;
@@ -43,7 +44,7 @@ namespace Disney.Api
             services.AddDbContext<DisneyContext>(options =>
             {
                 options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString))
-                    .LogTo(Console.WriteLine, new[] {DbLoggerCategory.Database.Name}, 
+                    .LogTo(Console.WriteLine, new[] { DbLoggerCategory.Database.Name },
                         LogLevel.Information)
                     .EnableSensitiveDataLogging() // <-- These two calls are optional but help
                     .EnableDetailedErrors(); // <-- with debugging (remove for production).
@@ -79,6 +80,8 @@ namespace Disney.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseLoggingMiddleware();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -93,7 +96,7 @@ namespace Disney.Api
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
-            
+
             AppDbInitializer.Seed(app);
         }
     }
