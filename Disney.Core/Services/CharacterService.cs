@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Disney.Core.CustomEntities;
 using Disney.Core.DTOs;
 using Disney.Core.Entities;
 using Disney.Core.Interfaces;
@@ -36,7 +37,10 @@ namespace Disney.Core.Services
                 characters = characters.Where(x => x.Age == filters.Age);
             }
 
-            return characters;
+            var pagedCharacters =
+                PagedList<Character>
+                .Create(characters, filters.PageNumber, filters.PageSize);
+            return pagedCharacters;
         }
 
         public async Task<CharacterWithMovies> GetCharacterById(int id)

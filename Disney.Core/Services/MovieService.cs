@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Disney.Core.CustomEntities;
 using Disney.Core.DTOs;
 using Disney.Core.Entities;
 using Disney.Core.Interfaces;
@@ -36,18 +37,25 @@ namespace Disney.Core.Services
             {
                 filters.Order = filters.Order.ToUpper();
 
-                if (filters.Order == "ASC") {
+                if (filters.Order == "ASC")
+                {
                     movies = from m in movies
-                        orderby m.Title
-                        select m;
+                             orderby m.Title
+                             select m;
                 }
-                else if (filters.Order == "DESC") {
+                else if (filters.Order == "DESC")
+                {
                     movies = from m in movies
-                        orderby m.Title descending
-                        select m;
+                             orderby m.Title descending
+                             select m;
                 }
             }
-            return movies;
+
+            var pagedMovies =
+                PagedList<Movie>
+                .Create(movies, filters.PageNumber, filters.PageSize);
+            return pagedMovies;
+            // return movies;
         }
 
         public async Task<MovieWithCharacters> GetMovieById(int id)
