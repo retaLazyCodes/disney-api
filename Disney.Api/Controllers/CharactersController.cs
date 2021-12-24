@@ -12,9 +12,11 @@ using Disney.Core.QueryFilters;
 using System.Text.Json;
 using Disney.Core.CustomEntities;
 using Disney.Infrastructure.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Disney.Api.Controllers
 {
+    [Authorize]
     [Produces("application/json")]
     [ApiController]
     [Route("[controller]")]
