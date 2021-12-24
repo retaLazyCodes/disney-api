@@ -6,20 +6,30 @@ using Disney.Core.DTOs;
 using Disney.Core.Entities;
 using Disney.Core.Interfaces;
 using Disney.Core.QueryFilters;
+using Microsoft.Extensions.Options;
 
 namespace Disney.Core.Services
 {
     public class CharacterService : ICharacterService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly PaginationOptions _paginationOptions;
 
-        public CharacterService(IUnitOfWork unitOfWork)
+        public CharacterService(IUnitOfWork unitOfWork, IOptions<PaginationOptions> options)
         {
             _unitOfWork = unitOfWork;
+            _paginationOptions = options.Value;
         }
 
         public async Task<PagedList<Character>> GetCharacters(CharacterQueryFilter filters)
         {
+            filters.PageNumber = filters.PageNumber == 0 
+                ? _paginationOptions.DefaultPageNumber 
+                : filters.PageNumber;
+            filters.PageSize = filters.PageSize == 0 
+                ? _paginationOptions.DefaultPageSize 
+                : filters.PageSize;
+            
             var characters = await _unitOfWork.CharacterRepository.GetAll();
 
             if (filters.Movie != null)

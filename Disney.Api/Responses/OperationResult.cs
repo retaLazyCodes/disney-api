@@ -1,4 +1,5 @@
 using System;
+using Disney.Core.CustomEntities;
 
 namespace Disney.Api.Responses
 {
@@ -9,13 +10,20 @@ namespace Disney.Api.Responses
         }
 
         public bool Success { get; private set; }
-        public TResult Result { get; private set; }
+        public TResult Data { get; private set; }
         public string NonSuccessMessage { get; private set; }
         public Exception Exception { get; private set; }
 
+        public Metadata Metadata { get; set; }
+
         public static OperationResult<TResult> CreateSuccessResult(TResult result)
         {
-            return new OperationResult<TResult> { Success = true, Result = result };
+            return new OperationResult<TResult> { Success = true, Data = result };
+        }
+
+        public static OperationResult<TResult> CreateSuccessResult(TResult result, Metadata meta)
+        {
+            return new OperationResult<TResult> { Success = true, Data = result , Metadata = meta};
         }
 
         public static OperationResult<TResult> CreateFailure(string nonSuccessMessage)

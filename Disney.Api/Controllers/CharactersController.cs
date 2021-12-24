@@ -9,6 +9,8 @@ using Disney.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Disney.Core.QueryFilters;
 using System.Text.Json;
+using Disney.Core.CustomEntities;
+using Disney.Infrastructure.Interfaces;
 
 namespace Disney.Api.Controllers
 {
@@ -18,30 +20,35 @@ namespace Disney.Api.Controllers
     {
         private readonly ICharacterService _characterService;
         private readonly IMapper _mapper;
+        private readonly IUriService _uriService;
 
-        public CharactersController(ICharacterService characterService, IMapper mapper)
+        public CharactersController(ICharacterService characterService, IMapper mapper, IUriService uriService)
         {
             _characterService = characterService;
             _mapper = mapper;
+            _uriService = uriService;
         }
 
-        [HttpGet]
+        [HttpGet(Name = nameof(GetCharacters))]
         public async Task<IActionResult> GetCharacters([FromQuery] CharacterQueryFilter filters)
         {
             var characters = await _characterService.GetCharacters(filters);
             var characterViewModels = _mapper.Map<IEnumerable<CharacterViewModel>>(characters);
-            var response =
-                OperationResult<IEnumerable<CharacterViewModel>>.CreateSuccessResult(characterViewModels);
 
-            var metadata = new
+            var metadata = new Metadata()
             {
-                characters.TotalCount,
-                characters.PageSize,
-                characters.CurrentPage,
-                characters.TotalPages,
-                characters.HasNextPage,
-                characters.HasPreviousPage
+                TotalCount = characters.TotalCount,
+                PageSize = characters.PageSize,
+                CurrentPage = characters.CurrentPage,
+                TotalPages = characters.TotalPages,
+                HasNextPage = characters.HasNextPage,
+                HasPreviousPage = characters.HasPreviousPage,
+                NextPageUrl = _uriService.GetCharacterPaginationUri(filters, Url.RouteUrl(nameof(GetCharacters))).ToString(),
+                PreviousPageUrl = _uriService.GetCharacterPaginationUri(filters, Url.RouteUrl(nameof(GetCharacters))).ToString()
             };
+            var response =
+                OperationResult<IEnumerable<CharacterViewModel>>
+                    .CreateSuccessResult(characterViewModels, metadata);
 
             Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(metadata));
             return Ok(response);

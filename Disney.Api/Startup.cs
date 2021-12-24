@@ -1,14 +1,18 @@
 using System;
 using System.Text;
 using Disney.Api.Middlewares;
+using Disney.Core.CustomEntities;
 using Disney.Core.Interfaces;
 using Disney.Core.Services;
 using Disney.Infrastructure.Data;
 using Disney.Infrastructure.Data.Seeds;
+using Disney.Infrastructure.Interfaces;
 using Disney.Infrastructure.Repositories;
+using Disney.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -38,7 +42,17 @@ namespace Disney.Api
             services.AddTransient<IMovieService, MovieService>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
-
+            
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSingleton<IUriService>(provider =>
+            {
+                var accesor = provider.GetRequiredService<IHttpContextAccessor>();
+                var request = accesor.HttpContext.Request;
+                var absoluteUri = string.Concat(request.Scheme, "://", request.Host.ToUriComponent());
+                return new UriService(absoluteUri);
+            });
+            
+            services.Configure<PaginationOptions>(Configuration.GetSection("Pagination"));
             var connectionString = Configuration.GetConnectionString("Disney");
 
             services.AddDbContext<DisneyContext>(options =>
