@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
 using Disney.Api.Responses;
@@ -14,6 +15,7 @@ using Disney.Infrastructure.Interfaces;
 
 namespace Disney.Api.Controllers
 {
+    [Produces("application/json")]
     [ApiController]
     [Route("[controller]")]
     public class CharactersController : ControllerBase
@@ -29,7 +31,13 @@ namespace Disney.Api.Controllers
             _uriService = uriService;
         }
 
+        /// <summary>
+        /// Retrieve all characters
+        /// </summary>
+        /// <returns></returns>
         [HttpGet(Name = nameof(GetCharacters))]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ResponseWithMeta<IEnumerable<CharacterViewModel>>))]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> GetCharacters([FromQuery] CharacterQueryFilter filters)
         {
             var characters = await _characterService.GetCharacters(filters);
@@ -47,13 +55,20 @@ namespace Disney.Api.Controllers
                 PreviousPageUrl = _uriService.GetCharacterPaginationUri(filters, Url.RouteUrl(nameof(GetCharacters))).ToString()
             };
             var response =
-                OperationResult<IEnumerable<CharacterViewModel>>
+                ResponseWithMeta<IEnumerable<CharacterViewModel>>
                     .CreateSuccessResult(characterViewModels, metadata);
 
             Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(metadata));
             return Ok(response);
         }
 
+        /// <summary>
+        /// Retrieve a character given an id
+        /// </summary>
+        /// <returns></returns>
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(OperationResult<CharacterWithMovies>))]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetCharacterById(int id)
         {
@@ -67,6 +82,11 @@ namespace Disney.Api.Controllers
             return NotFound();
         }
 
+        /// <summary>
+        /// Retrieve the inserted character
+        /// </summary>
+        /// <returns></returns>
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(OperationResult<CharacterDto>))]
         [HttpPost]
         public IActionResult InsertCharacter(CharacterDto characterDto)
         {
@@ -79,6 +99,13 @@ namespace Disney.Api.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Return a true if the character was updated successful
+        /// </summary>
+        /// <returns></returns>
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(OperationResult<bool>))]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [HttpPut("{id:int}")]
         public async Task<IActionResult> UpdateCharacter(int id, CharacterDto characterDto)
         {
@@ -89,6 +116,12 @@ namespace Disney.Api.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Return a true if the character was deleted successful
+        /// </summary>
+        /// <returns></returns>
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(OperationResult<bool>))]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteCharacter(int id)
         {

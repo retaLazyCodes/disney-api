@@ -1,4 +1,6 @@
 using System;
+using System.IO;
+using System.Reflection;
 using System.Text;
 using Disney.Api.Middlewares;
 using Disney.Core.CustomEntities;
@@ -42,7 +44,7 @@ namespace Disney.Api
             services.AddTransient<IMovieService, MovieService>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
-            
+
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<IUriService>(provider =>
             {
@@ -51,7 +53,7 @@ namespace Disney.Api
                 var absoluteUri = string.Concat(request.Scheme, "://", request.Host.ToUriComponent());
                 return new UriService(absoluteUri);
             });
-            
+
             services.Configure<PaginationOptions>(Configuration.GetSection("Pagination"));
             var connectionString = Configuration.GetConnectionString("Disney");
 
@@ -85,9 +87,13 @@ namespace Disney.Api
             });
 
             services.AddControllers();
-            services.AddSwaggerGen(c =>
+            services.AddSwaggerGen(doc =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Disney.Api", Version = "v1" });
+                doc.SwaggerDoc("v1", new OpenApiInfo { Title = "Disney.Api", Version = "v1" });
+
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                doc.IncludeXmlComments(xmlPath);
             });
         }
 
