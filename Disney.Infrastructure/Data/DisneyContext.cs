@@ -21,6 +21,7 @@ namespace Disney.Infrastructure.Data
         public virtual DbSet<Genre> Genres { get; set; }
         public virtual DbSet<Movie> Movies { get; set; }
         public virtual DbSet<CharacterMovie> CharacterMovie { get; set; }
+        public virtual DbSet<Security> Security { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -11,6 +11,7 @@ namespace Disney.Infrastructure.Repositories
         private ICharacterRepository _characterRepository;
         private IGenreRepository _genreRepository;
         private IMovieRepository _movieRepository;
+        private ISecurityRepository _securityRepository;
 
         public UnitOfWork(DisneyContext context)
         {
@@ -28,6 +29,10 @@ namespace Disney.Infrastructure.Repositories
         public IMovieRepository MovieRepository => 
             _movieRepository ?? 
             new MovieRepository(_context);
+        
+        public ISecurityRepository SecurityRepository => 
+            _securityRepository ?? 
+            new SecurityRepository(_context);
 
         public void Dispose()
         {

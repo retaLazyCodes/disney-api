@@ -105,6 +105,29 @@ namespace Disney.Infrastructure.Migrations
                     b.ToTable("Movies");
                 });
 
+            modelBuilder.Entity("Disney.Core.Entities.Security", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("Role")
+                        .HasColumnType("int");
+
+                    b.Property<string>("User")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Security");
+                });
+
             modelBuilder.Entity("Disney.Core.Entities.CharacterMovie", b =>
                 {
                     b.HasOne("Disney.Core.Entities.Character", null)

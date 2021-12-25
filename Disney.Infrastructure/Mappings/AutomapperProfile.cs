@@ -14,6 +14,8 @@ namespace Disney.Infrastructure.Mappings
             CreateMap<GenreDto, Genre>();
             CreateMap<Movie, MovieDto>();
             CreateMap<MovieDto, Movie>();
+            CreateMap<Security, SecurityDto>();
+            CreateMap<SecurityDto, Security>();
         }
     }
 }

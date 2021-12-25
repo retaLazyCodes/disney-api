@@ -42,6 +42,7 @@ namespace Disney.Api
             services.AddTransient<ICharacterService, CharacterService>();
             services.AddTransient<IGenreService, GenreService>();
             services.AddTransient<IMovieService, MovieService>();
+            services.AddTransient<ISecurityService, SecurityService>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
 
