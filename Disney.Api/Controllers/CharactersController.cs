@@ -40,6 +40,7 @@ namespace Disney.Api.Controllers
         [HttpGet(Name = nameof(GetCharacters))]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ResponseWithMeta<IEnumerable<CharacterViewModel>>))]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
         public async Task<IActionResult> GetCharacters([FromQuery] CharacterQueryFilter filters)
         {
             var characters = await _characterService.GetCharacters(filters);

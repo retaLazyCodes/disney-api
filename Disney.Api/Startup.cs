@@ -47,6 +47,7 @@ namespace Disney.Api
             services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSingleton<IPasswordService, PasswordService>();
             services.AddSingleton<IUriService>(provider =>
             {
                 var accesor = provider.GetRequiredService<IHttpContextAccessor>();
@@ -56,6 +57,10 @@ namespace Disney.Api
             });
 
             services.Configure<PaginationOptions>(Configuration.GetSection("Pagination"));
+            // services.Configure<PasswordOptions>(Configuration.GetSection("PasswordOptions"));
+            services.Configure<Infrastructure.Options.PasswordOptions>
+                (Configuration.GetSection("PasswordOptions"));
+            
             var connectionString = Configuration.GetConnectionString("Disney");
 
             services.AddDbContext<DisneyContext>(options =>

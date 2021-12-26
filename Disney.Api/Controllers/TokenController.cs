@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Disney.Core.Entities;
 using Disney.Core.Interfaces;
+using Disney.Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -18,13 +19,20 @@ namespace Disney.Api.Controllers
     {
         private readonly IConfiguration _configuration;
         private readonly ISecurityService _securityService;
+        private readonly IPasswordService _passwordService;
 
-        public TokenController(IConfiguration configuration, ISecurityService securityService)
+        public TokenController(IConfiguration configuration, ISecurityService securityService,
+            IPasswordService passwordService)
         {
             _configuration = configuration;
             _securityService = securityService;
+            _passwordService = passwordService;
         }
 
+        /// <summary>
+        /// Authenticate a user in the system
+        /// </summary>
+        /// <returns></returns>
         [HttpPost("login")]
         public async Task<IActionResult> Authentication(UserLogin login)
         {
@@ -40,7 +48,13 @@ namespace Disney.Api.Controllers
         private async Task<(bool, Security)> IsValidUser(UserLogin login)
         {
             var user = await _securityService.GetLoginByCredentials(login);
-            return (user != null, user);
+            if (user != null)
+            {
+                var isValid = _passwordService.Check(user.Password, login.Password);
+                return (isValid, user);
+            }
+
+            return (false, user);
         }
 
         private string GenerateToken(Security security)
