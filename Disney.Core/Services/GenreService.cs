@@ -32,14 +32,24 @@ namespace Disney.Core.Services
 
         public async Task<bool> UpdateGenre(Genre genre)
         {
-            await _unitOfWork.GenreRepository.Update(genre);
-            return true;
+            var existingGenre = await _unitOfWork.GenreRepository.GetById(genre.Id);
+            if (existingGenre != null)
+            {
+                await _unitOfWork.GenreRepository.Update(genre);
+                return true;
+            }
+            return false;
         }
 
         public async Task<bool> DeleteGenre(int id)
         {
-            await _unitOfWork.GenreRepository.Delete(id);
-            return true;
+            var existingGenre = await _unitOfWork.GenreRepository.GetById(id);
+            if (existingGenre != null)
+            {
+                await _unitOfWork.GenreRepository.Delete(id);
+                return true;
+            }
+            return false;
         }
     }
 }

@@ -57,7 +57,7 @@ namespace Disney.Api.Controllers
                     OperationResult<MovieWithCharacters>.CreateSuccessResult(movie);
                 return Ok(response);
             }
-            return NotFound();
+            return NotFound(OperationResult<bool>.CreateFailure("The movie with that id does not exist"));
         }
 
         [HttpPost]
@@ -77,16 +77,26 @@ namespace Disney.Api.Controllers
             var movie = _mapper.Map<Movie>(movieDto);
             movie.Id = id;
             var result = await _movieService.UpdateMovie(movie);
-            var response = OperationResult<bool>.CreateSuccessResult(result);
-            return Ok(response);
+            if (result)
+            {
+                var response = OperationResult<bool>.CreateSuccessResult(result);
+                return Ok(response);
+            }
+
+            return NotFound(OperationResult<bool>.CreateFailure("The movie with that id does not exist"));
         }
 
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteMovie(int id)
         {
             var result = await _movieService.DeleteMovie(id);
-            var response = OperationResult<bool>.CreateSuccessResult(result);
-            return Ok(response);
+            if (result)
+            {
+                var response = OperationResult<bool>.CreateSuccessResult(result);
+                return Ok(response);
+            }
+
+            return NotFound(OperationResult<bool>.CreateFailure("The movie with that id does not exist"));
         }
     }
 }

@@ -60,21 +60,31 @@ namespace Disney.Core.Services
             return await _unitOfWork.MovieRepository.GetMovieDetailById(id);
         }
 
-        public async Task InsertMovie(Movie genre)
+        public async Task InsertMovie(Movie movie)
         {
-            await _unitOfWork.MovieRepository.Add(genre);
+            await _unitOfWork.MovieRepository.Add(movie);
         }
 
-        public async Task<bool> UpdateMovie(Movie genre)
+        public async Task<bool> UpdateMovie(Movie movie)
         {
-            await _unitOfWork.MovieRepository.Update(genre);
-            return true;
+            var existingGenre = await _unitOfWork.MovieRepository.GetById(movie.Id);
+            if (existingGenre != null)
+            {
+                await _unitOfWork.MovieRepository.Update(movie);
+                return true;
+            }
+            return false;
         }
 
         public async Task<bool> DeleteMovie(int id)
         {
-            await _unitOfWork.MovieRepository.Delete(id);
-            return true;
+            var existingGenre = await _unitOfWork.MovieRepository.GetById(id);
+            if (existingGenre != null)
+            {
+                await _unitOfWork.MovieRepository.Delete(id);
+                return true;
+            }
+            return false;
         }
     }
 }

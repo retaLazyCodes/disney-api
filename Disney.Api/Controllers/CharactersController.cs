@@ -72,6 +72,7 @@ namespace Disney.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(OperationResult<CharacterWithMovies>))]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetCharacterById(int id)
         {
@@ -82,7 +83,7 @@ namespace Disney.Api.Controllers
                     OperationResult<CharacterWithMovies>.CreateSuccessResult(character);
                 return Ok(response);
             }
-            return NotFound();
+            return NotFound(OperationResult<bool>.CreateFailure("The character with that id does not exist"));
         }
 
         /// <summary>
@@ -115,8 +116,13 @@ namespace Disney.Api.Controllers
             var character = _mapper.Map<Character>(characterDto);
             character.Id = id;
             var result = await _characterService.UpdateCharacter(character, characterDto.MovieIds);
-            var response = OperationResult<bool>.CreateSuccessResult(result);
-            return Ok(response);
+            if (result)
+            {
+                var response = OperationResult<bool>.CreateSuccessResult(result);
+                return Ok(response);
+            }
+
+            return NotFound(OperationResult<bool>.CreateFailure("The character with that id does not exist"));
         }
 
         /// <summary>
@@ -129,8 +135,13 @@ namespace Disney.Api.Controllers
         public async Task<IActionResult> DeleteCharacter(int id)
         {
             var result = await _characterService.DeleteCharacter(id);
-            var response = OperationResult<bool>.CreateSuccessResult(result);
-            return Ok(response);
+            if (result)
+            {
+                var response = OperationResult<bool>.CreateSuccessResult(result);
+                return Ok(response);
+            }
+
+            return NotFound(OperationResult<bool>.CreateFailure("The character with that id does not exist"));
         }
     }
 }

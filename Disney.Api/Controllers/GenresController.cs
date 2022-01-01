@@ -42,7 +42,7 @@ namespace Disney.Api.Controllers
                 var response = OperationResult<GenreWithMovies>.CreateSuccessResult(genre);
                 return Ok(response);
             }
-            return NotFound();
+            return NotFound(OperationResult<bool>.CreateFailure("The genre with that id does not exist"));
         }
         
         [HttpPost]
@@ -62,16 +62,26 @@ namespace Disney.Api.Controllers
             var genre = _mapper.Map<Genre>(genreDto);
             genre.Id = id;
             var result = await _genreService.UpdateGenre(genre);
-            var response = OperationResult<bool>.CreateSuccessResult(result);
-            return Ok(response);
+            if (result)
+            {
+                var response = OperationResult<bool>.CreateSuccessResult(result);
+                return Ok(response);
+            }
+
+            return NotFound(OperationResult<bool>.CreateFailure("The genre with that id does not exist"));
         }
         
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteGenre(int id)
         {
             var result = await _genreService.DeleteGenre(id);
-            var response = OperationResult<bool>.CreateSuccessResult(result);
-            return Ok(response);
+            if (result)
+            {
+                var response = OperationResult<bool>.CreateSuccessResult(result);
+                return Ok(response);
+            }
+
+            return NotFound(OperationResult<bool>.CreateFailure("The genre with that id does not exist"));
         }
     }
 }

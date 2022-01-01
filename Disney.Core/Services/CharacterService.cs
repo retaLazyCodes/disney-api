@@ -65,14 +65,24 @@ namespace Disney.Core.Services
 
         public async Task<bool> UpdateCharacter(Character character, List<int> moviesIds)
         {
-            await _unitOfWork.CharacterRepository.UpdateCharacter(character, moviesIds);
-            return true;
+            var existingCharacter = await _unitOfWork.CharacterRepository.GetById(character.Id);
+            if (existingCharacter != null)
+            {
+                await _unitOfWork.CharacterRepository.UpdateCharacter(character, moviesIds);
+                return true;
+            }
+            return false;
         }
 
         public async Task<bool> DeleteCharacter(int id)
         {
-            await _unitOfWork.CharacterRepository.Delete(id);
-            return true;
+            var existingCharacter = await _unitOfWork.CharacterRepository.GetById(id);
+            if (existingCharacter != null)
+            {
+                await _unitOfWork.CharacterRepository.Delete(id);
+                return true;
+            }
+            return false;
         }
     }
 }
