@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Disney.Api.Controllers
 {
-    [Authorize(Roles = nameof(RoleType.Administrator))]
+    // [Authorize(Roles = nameof(RoleType.Administrator))]
     [Produces("application/json")]
     [Route("[controller]")]
     [Route("auth")]
