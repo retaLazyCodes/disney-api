@@ -1,0 +1,11 @@
+cd ./Disney.Infrastructure
+
+dotnet new tool-manifest
+dotnet tool install dotnet-ef --version 5.0.12
+
+dotnet dotnet-ef migrations add first_migration -s ../Disney.Api/Disney.Api.csproj 
+dotnet dotnet-ef database update -s ../Disney.Api/Disney.Api.csproj
+
+dotnet dev-certs https
+
+dotnet run --project ./Disney.Api/Disney.Api.csproj
